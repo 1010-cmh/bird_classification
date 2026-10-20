@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# Environments and local settings
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+.python-version
+.idea/
+.vscode/
+.DS_Store
+
+# Data and experiment artifacts
+/data/
+/outputs/
+/checkpoints/
+/runs/
+/wandb/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.log
+.ipynb_checkpoints/
+
+# Temporary files
+/tmp/
+*.tmp
+*.swp
+*~
