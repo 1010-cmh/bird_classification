@@ -1,0 +1,11 @@
+{
+  "kernel": "linear",
+  "gamma": null,
+  "C_values": [0.1, 1.0, 10.0],
+  "solver": {
+    "abstol": 1e-12,
+    "reltol": 1e-10,
+    "feastol": 1e-10,
+    "maxiters": 100
+  }
+}

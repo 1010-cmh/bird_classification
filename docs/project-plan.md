@@ -1,6 +1,6 @@
 # 项目方案与实施安排
 
-2026-10-23：已完成数据审计、固定划分及 T0 Softmax 基线。实现和结果见 [首轮实验记录](experiments/softmax-baseline.md)。T1 与深度学习部分尚未开始，原始测试集尚未评价。
+2026-10-23：已完成数据审计、固定划分、T0 Softmax 基线与 T1 线性 SVM 对照。实现和结果见 [首轮实验记录](experiments/softmax-baseline.md)及 [SVM 对照实验](experiments/svm-comparison.md)。深度学习部分尚未开始，原始测试集尚未评价。
 
 ## 1. 目标与范围
 

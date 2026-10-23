@@ -56,7 +56,7 @@ def environment():
         result = subprocess.run(["git", *args], cwd=repo, capture_output=True, text=True)
         return result.stdout.strip() if result.returncode == 0 else None
     return {"python": platform.python_version(), "platform": platform.platform(),
-            "packages": {name: version(name) for name in ("numpy", "Pillow", "torch")},
+            "packages": {name: version(name) for name in ("numpy", "Pillow", "torch", "cvxopt")},
             "git_commit": git("rev-parse", "HEAD"),
             "git_status": git("status", "--porcelain"),
             "git_diff_sha256": digest(git("diff", "HEAD")),

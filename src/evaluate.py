@@ -4,13 +4,13 @@ import argparse
 from pathlib import Path
 
 from src.data import load_features, load_manifest
-from src.traditional.softmax import SoftmaxClassifier
+from src.traditional.io import load_model
 from src.utils import classification_metrics, file_hash, new_output, write_json, write_predictions
 
 
 def evaluate(data_dir, manifest_path, model_path, split, output_dir):
     manifest = load_manifest(manifest_path)
-    model = SoftmaxClassifier.load(model_path)
+    model = load_model(model_path)
     if (model.metadata['manifest_sha256'] != manifest['manifest_sha256']
             or model.metadata['classes'] != manifest['selected_classes']
             or model.metadata['feature_key'] != manifest['feature_key']):
