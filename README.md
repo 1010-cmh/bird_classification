@@ -7,13 +7,15 @@
 | 任务 | 数据范围 | 输入 | 进度 |
 | --- | --- | --- | --- |
 | 传统分类 | 固定的 10 个类别 | 教师提供的特征向量 | 已实现数据检查、固定划分、Softmax 和 SVM 训练与评估 |
-| 深度学习分类 | 完整 200 个类别 | 原始 RGB 图像 | 待实现 |
+| 深度学习分类 | 完整 200 个类别 | 原始 RGB 图像 | 已实现 CNN、训练续训、独立评估和单图预测；D0 基线训练进行中 |
 
 主要指标为 Top-1 准确率。两项任务的类别数和输入表示不同，结果分别报告。[项目方案](docs/project-plan.md)记录整体设计与实施阶段。
 
 [首轮实验记录](docs/experiments/softmax-baseline.md)：10 类 Softmax 在 78 张内部验证样本上正确分类 78 张；最终测试集尚未评估。该结果来自单个固定划分，不代表完整 200 类性能。
 
 [SVM 对照实验](docs/experiments/svm-comparison.md)：相同划分下，线性 SVM 的三组 `C` 配置均为 78/78，按平局规则选择 `C=0.1`。当前结果未显示两种方法存在准确率差异。
+
+CNN 的网络结构、图像预处理、完整训练及断点恢复说明见 [200 类 CNN 训练与复现](docs/cnn-workflow.md)。深度模型从随机权重开始训练，只读取图像，使用全部 200 类。
 
 ## 环境
 
@@ -153,7 +155,26 @@ python -m pytest -q
 
 测试包含数值梯度、极端 logits、常量特征、损坏与缺失文件、重复图片隔离、文件变动检测、划分复现、训练及模型恢复。端到端测试在生成划分后移除测试数据，验证训练和内部验证流程仍可独立完成。
 
-SVM 测试覆盖可分数据的解析解、无自由支持向量、矛盾标签、RBF 的 XOR 分类、不收敛拒绝、多分类平票和模型保存恢复。当前共 34 项测试。
+SVM 测试覆盖可分数据的解析解、无自由支持向量、矛盾标签、RBF 的 XOR 分类、不收敛拒绝、多分类平票和模型保存恢复。传统方法相关测试共 34 项。
+
+CNN 测试进一步覆盖图像输入、完整类别映射、小样本过拟合、模型恢复、单图预测和 CPU 续训一致性。全部模块合计 46 项测试。
+
+## 200 类 CNN
+
+```bash
+python -m src.train_cnn --data-dir data \
+  --config configs/cnn-baseline.json \
+  --output-dir outputs/cnn-baseline --device auto
+
+python -m src.evaluate_cnn --data-dir data \
+  --checkpoint outputs/cnn-baseline/model.pt \
+  --split internal_val --output-dir outputs/cnn-validation --device auto
+
+python -m src.predict --image /path/to/bird.jpg \
+  --checkpoint outputs/cnn-baseline/model.pt --device auto
+```
+
+`model.pt` 为内部验证选出的最佳模型，`last.pt` 为最后完成轮次的续训状态。恢复训练时将 `--resume` 指向 `last.pt`，并指定新的输出目录。固定总轮数后可用 `--stop-after-epoch` 分段执行，详见 [续训说明](docs/cnn-workflow.md)。
 
 ## 目录
 
@@ -162,12 +183,19 @@ configs/                  训练配置
 splits/                   固定划分和类别映射
 src/
   data.py                 数据检查、划分及特征加载
+  image_data.py           全类别图像加载与固定预处理
   prepare_data.py         数据准备命令
   traditional/softmax.py  标准化、Softmax 损失及模型
   traditional/svm.py      SVM 对偶问题、核函数及一对一分类
   traditional/io.py       传统模型格式识别与加载
   train_traditional.py    训练和内部验证选择
   train_svm.py            SVM 参数比较与求解诊断
+  models/cnn.py           自行搭建的卷积分类器
+  cnn_runtime.py          设备、随机状态及检查点
+  train_cnn.py            CNN 训练和按轮恢复
+  evaluate_cnn.py         CNN 独立评价
+  predict.py              单图分类
+  plot_cnn.py             已有训练历史的曲线绘制
   evaluate.py             保存模型的独立评价
   utils.py                序列化、指标和环境记录
 tests/                   算法与流程测试
