@@ -1,0 +1,253 @@
+{
+  "date": "2026-10-23",
+  "archive_sha256": "61ae1b61b6c609c9d51b1e1763fb8b32443cc9b3a29b665caee3c4d782584143",
+  "dataset_fingerprint": "d41e1ef469d8f1f64f65a3103e5df44afc39fabb4fd43c1fa4aafc403f5e2845",
+  "manifest_sha256": "382bca6fa63a7e461b089d2571cd5fe1730edf0d39b9428fafcd2358979beef3",
+  "config": {
+    "seed": 42,
+    "learning_rate": 0.01,
+    "epochs": 100,
+    "batch_size": 64,
+    "l2_values": [
+      0.0,
+      0.0001,
+      0.001,
+      0.01
+    ]
+  },
+  "environment": {
+    "python": "3.13.7",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.4",
+      "Pillow": "12.3.0",
+      "torch": "2.14.1"
+    },
+    "source_sha256": {
+      "src/__init__.py": "591d38daae209efc5e41fb847bfa201884f0c18202709ead448146f4246fa411",
+      "src/data.py": "b5bf066d6f41369cdeab947b608d3ddd00e4c85a4764bb8944ddeb975b4ce72d",
+      "src/evaluate.py": "c10786d33c1e3742836472fa35c850c0464161e3fb09f68711bc4cacb05b63b7",
+      "src/prepare_data.py": "1b30942175c9534e71e1dec1a987b79da3836b410ec893b7969366be36886f3b",
+      "src/traditional/__init__.py": "4ae632a209b61d4a0b0edebefa013960f07481759054b8f542bd21ba555c8916",
+      "src/traditional/softmax.py": "6913c89098fbf1da94a8b01e70289d99f0e2379afd5104ba2171f36d7b8abe39",
+      "src/train_traditional.py": "52025bb147d7ec61f1c02caa845a6f039337589719966737b031360a4f0030b5",
+      "src/utils.py": "54306b32ba168972c37cbe81f90f556570cee27e40ecc637e01da79f783705a0"
+    }
+  },
+  "data": {
+    "totals": {
+      "train": 10597,
+      "val": 1191
+    },
+    "feature_dimensions": {
+      "384": 11788
+    },
+    "image_modes": {
+      "RGB": 11780,
+      "L": 8
+    },
+    "duplicate_images": [
+      [
+        "train/058.Pigeon_Guillemot/Pigeon_Guillemot_0018_40195.jpg",
+        "train/058.Pigeon_Guillemot/Pigeon_Guillemot_0081_40339.jpg"
+      ]
+    ]
+  },
+  "result": {
+    "task": "traditional_10_class",
+    "selection_rule": "highest internal validation accuracy; lowest cross-entropy breaks ties; earliest entry breaks exact ties",
+    "classes": [
+      "017.Cardinal",
+      "018.Spotted_Catbird",
+      "019.Gray_Catbird",
+      "041.Scissor_tailed_Flycatcher",
+      "085.Horned_Lark",
+      "086.Pacific_Loon",
+      "127.Savannah_Sparrow",
+      "139.Scarlet_Tanager",
+      "149.Brown_Thrasher",
+      "169.Magnolia_Warbler"
+    ],
+    "fit_samples": 442,
+    "internal_val_samples": 78,
+    "feature_dimension": 384,
+    "manifest_sha256": "382bca6fa63a7e461b089d2571cd5fe1730edf0d39b9428fafcd2358979beef3",
+    "candidates": [
+      {
+        "candidate": 0,
+        "l2": 0.0,
+        "epoch": 100,
+        "train_loss": 0.01569709580018997,
+        "internal_val_loss": 0.027358161139805447,
+        "train_accuracy": 1.0,
+        "internal_val_accuracy": 1.0
+      },
+      {
+        "candidate": 1,
+        "l2": 0.0001,
+        "epoch": 100,
+        "train_loss": 0.015721327217548313,
+        "internal_val_loss": 0.027390138279464214,
+        "train_accuracy": 1.0,
+        "internal_val_accuracy": 1.0
+      },
+      {
+        "candidate": 2,
+        "l2": 0.001,
+        "epoch": 100,
+        "train_loss": 0.015940260643234387,
+        "internal_val_loss": 0.027678733532191167,
+        "train_accuracy": 1.0,
+        "internal_val_accuracy": 1.0
+      },
+      {
+        "candidate": 3,
+        "l2": 0.01,
+        "epoch": 100,
+        "train_loss": 0.018210353517575755,
+        "internal_val_loss": 0.03063952954084386,
+        "train_accuracy": 1.0,
+        "internal_val_accuracy": 1.0
+      }
+    ],
+    "selected": {
+      "candidate": 0,
+      "l2": 0.0,
+      "epoch": 100,
+      "train_loss": 0.01569709580018997,
+      "internal_val_loss": 0.027358161139805447,
+      "train_accuracy": 1.0,
+      "internal_val_accuracy": 1.0
+    },
+    "internal_val": {
+      "accuracy": 1.0,
+      "correct": 78,
+      "total": 78,
+      "confusion_matrix": [
+        [
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          8,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          8,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          8,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          8,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          8
+        ]
+      ]
+    },
+    "training_seconds": 0.19829333398956805,
+    "test_evaluated": false
+  },
+  "validation_predictions_match_after_reload": true
+}
